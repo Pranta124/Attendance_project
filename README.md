@@ -32,3 +32,29 @@ public function index()
      return view('attendance.index',compact('query','employee','employees','attendance','attendances','a'));
     }
 ```
+# Update_function
+```
+  public function update_attendance(Request $request)
+    {
+        $id=$request->employee_id;
+        $date=$request->date_field;
+        // dd($id);
+
+        $update = Attendance::where('employee_id',$id)
+                            ->Where('date_field',$date)
+                            ->first();
+                        //  dd($update);
+        $update =  Attendance::find($update->id);
+        // dd($update);
+
+        $update->employee_id = $request->input('employee_id');
+        $update->date_field = $request->input('date_field');
+        $update->status = $request->input('status');
+        $update->reason = $request->input('reason');
+        //   dd($update);
+        $update->update();
+        //   dd($update);
+        return redirect('attendance')->with('status',"Job-Post Updated Successfully");
+
+    }
+```
